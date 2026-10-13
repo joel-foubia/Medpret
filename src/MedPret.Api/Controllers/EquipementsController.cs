@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace MedPret.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]   // → /api/equipements
+[Route("api/[controller]")]
 public class EquipementsController : ControllerBase
 {
-    // Inventaire temporaire en mémoire (remplacé par PostgreSQL à l'étape 3)
     private static readonly List<Equipement> _equipements =
     [
         new() { Id = 1, Nom = "Fauteuil roulant standard", Type = "Fauteuil roulant",
@@ -23,5 +22,19 @@ public class EquipementsController : ControllerBase
     public ActionResult<IEnumerable<Equipement>> GetTous()
     {
         return Ok(_equipements);
+    }
+
+    // GET /api/equipements/{id}
+    [HttpGet("{id}")]
+    public ActionResult<Equipement> GetParId(int id)
+    {
+        var equipement = _equipements.FirstOrDefault(e => e.Id == id);
+
+        if (equipement is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(equipement);
     }
 }
