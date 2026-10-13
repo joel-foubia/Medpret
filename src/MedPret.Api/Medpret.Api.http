@@ -1,0 +1,6 @@
+@Medpret.Api_HostAddress = http://localhost:5141
+
+GET {{Medpret.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
